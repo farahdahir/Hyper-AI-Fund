@@ -1,33 +1,38 @@
 # **Customer Interest Prediction for Hyper Artificial Intelligence Fund**
 # Overview
-`Salifort Motors`, a fictional alternative energy vehicle manufacturer, has taken a proactive step by seeking data-driven insights to enhance employee satisfaction levels within the company. The Human Resources (HR) department has collected extensive data from employees, creating an invaluable resource that, when harnessed effectively, can guide strategic initiatives to mitigate turnover. The goal of this capstone project is, to conduct a thorough `analysis` of the HR data collected by Salifort Motors and develop a robust `predictive` model capable of foreseeing whether an employee is likely to `leave the company`. The `PACE` framework was used to structure and complete this project. - **P**lan - **A**nalyze - **C**onstruct - **E**xecute.
+This project focuses on building a machine learning model to predict customer interest in a financial product—the Hyper Artificial Intelligence Fund. Using anonymised data from 2,000 customers, several classification algorithms were tested, with the Random Forest model delivering the best performance (82.5% accuracy, 90.8% precision for uninterested customers). The model was designed for real-time CRM integration to help sales teams focus on high-potential leads and reduce customer churn due to irrelevant follow-ups.
 
 # Business Understanding
-The HR department, recognizing the impact of high turnover on operational stability and costs, seeks to leverage data-driven insights to proactively enhance employee satisfaction and retention. The project aims to discover data-driven insights to inform strategic decisions, improve the working environment, and ultimately `reduce employee turnover`. By viewing data as a strategic asset, Salifort Motors aims to optimize HR practices, placing employees at the center of organizational success.
+Hyper Big Bank launched a new investment fund and wanted to optimize their outbound call strategy. Sales representatives speak directly to customers and manually record their interest. This process is time-consuming and inefficient. The business goal was to automate customer classification—identifying those highly likely to show interest (Category 3) and those unlikely to convert (Category 0)—to improve targeting, reduce wasted effort, and personalize communication.
 
 # Data Understanding
-The dataset was collected by the HR department, capturing a wide range of information pertaining to employees' professional activities, evaluations, projects, tenure, salaries, and overall satisfaction levels. Understanding the significance of each variable and the relationship between them were discoved in `Exploratory data analysis`. The scatter plot below shows the relationship between average_monthly_hours and promotion_last_5years, which was used to examine whether employees who worked very long hours were promoted in the last five years. The plot shows that very few employees who worked the most hours were promoted and all of the employees who left were working the longest hours.
+The dataset comprised 2,000 anonymised customer records with 18 features (FEAT_0 to FEAT_17) and a categorical target variable (CATEGORY) indicating interest levels:
 
-![Scatter plot of average_monthly_hours v tip amount](images/hours_promotion.png)
+0: Not interested, do not contact again
 
-A correlation heatmap was also constructed to confirm that the number of projects, monthly hours, and evaluation scores all had some positive correlation with each other, and whether an employee leaves was negatively correlated with their satisfaction level.
+1: Low priority
+
+2: Medium priority
+
+3: High interest, high priority
+
+Most features were numeric; two (job title and city) were categorical. One column (FEAT_9) had missing values, and no duplicates were found. Exploratory analysis revealed slight class imbalance and strong correlations among certain variables.
 
 # Modeling and Evaluation
-In the comparative analysis between logistic regression and tree-based models (random forest and xgboost) for predicting employee turnover, XGBoost emerged as the most effective model based on its superior performance on the validation dataset. The `XGBoost` model achieved AUC of 93.9%, precision of 89.3%, recall of 89.9%, f1-score of 89.6%, and accuracy of 96.5%, on the test set. In the final model, `last_evaluation`, `number_project`, `tenure`, `salary_low` and `overworked` had the highest importance, in that order. These variables were most helpful in predicting the outcome variable, **left**.
+Several classification models were evaluated, including Logistic Regression, Support Vector Machine (SVM), Decision Tree, Random Forest, and XGBoost. After preprocessing (imputation, one-hot encoding, outlier handling, and feature scaling), a Random Forest model achieved the best balance across accuracy, precision, and recall. Key evaluation metrics:
 
+Accuracy: 82.5%
 
-![Feature Importance of XGBoost](images/feature_importance.png)
+Precision for Category 0: 90.8%
+
+Macro F1-Score: 80.6%
+
+Feature importance analysis showed FEAT_11, FEAT_8, and FEAT_6 contributed most to predictions. Hyperparameters were optimized using grid search with cross-validation.
 
 # Conclusion
-The data-driven analysis has provided valuable insights into the factors influencing employee turnover at Salifort Motors. The XGBoost model, outperforming other models, has identified critical predictors such as last_evaluation, number_project, tenure, salary levels (especially "salary_low"), and overwork status. Recomendations were made such as considering project delegation, workload balancing, and resource allocation adjustments to reduce overwork. Explore the possibility of predicting other critical factors such as employee performance scores or satisfaction levels and assess whether these alternative targets provide meaningful insights into employee turnover and satisfaction, could be the next steps.
+The project successfully demonstrated that machine learning can effectively classify customer interest for outbound sales calls. The Random Forest model was selected for its performance and generalization ability. Recommendations include integrating the model into the sales CRM with a real-time dashboard and retraining it periodically with new data. This approach enhances operational efficiency, customer experience, and conversion rates.
 
 ----
-----
-
-# Installation
-- Clone this repo to your computer. `git clone` <[repository_url](https://github.com/farahdahir/Salifort_Motors)>
-- Navigate to the project directory: using `cd Salifort_Motors`
-- Install the required libraries from the `requirements.txt` file using pip: `pip install -r requirements.txt`
 
 # Reviewing the Project
 The project has 3 files and 2 folders. The `salifort_motors.ipynb` is the main notebook for the project. It is divided into sections alining with the PACE frame-work Plan, Analyse, Construct and Execute. For the Construct stage some code cells are commented out, where the predictive models are fitted to save you time. This does not affect the overral work flow of the project, since the models were fitted and saved as pickle files.
